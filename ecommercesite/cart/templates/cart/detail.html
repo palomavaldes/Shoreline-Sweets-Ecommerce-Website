@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{%block title%}My Cart{%endblock%}
+
+{%block content%}
+<h2 class="text-2xl mb-4" style="font-weight: 500;">My Cart</h2>
+
+{% if cart %}
+<ul class="space-y-4">
+    {% for item in cart.Items.all %}
+    <li class="flex items-center p-4">
+        {%if item.product.image%}
+        <img src="{{item.product.image.url}}" alt="item.product.name" style="width: 12vw; margin-right: 14px;">
+        {% endif %}
+        <div class="flex-grow"> 
+            <a href="{%url 'products:product_detail' item.product.id item.product.slug%}"> 
+        <h3 style="font-size: large; font-weight: 500;">{{item.product.name}}</h3>
+            </a>
+        <p style="color: rgb(59, 59, 59);">{{item.product.description}}</p>
+        <p style="color:rgb(215, 145, 80);">${{item.product.price}}</p>
+        <p style="color: rgb(115, 115, 115);">Quantity: {{item.quantity}}</p>
+
+<div class="flex-shrink">
+    <form action="{% url 'cart:remove_item' item.id %}" method="post">
+    {%csrf_token%}
+    <button type="submit" style="background-color: firebrick; color:white; padding: 8px;border-radius: 5px; font-size: small; ">X</button>
+    </form>
+</div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+<p>
+    <strong>Total Price: ${{cart.get_total_price}}</strong>
+</p>
+{% else %}
+<p>Your cart is empty.</p>
+{%endif%}
+<form method="post" action="{%  url 'orders:order_create'%}">
+    {%csrf_token%}
+    <button style="background-color: rgb(215, 145, 80); color: white; padding: 6px; padding: 2py; border-radius: 5px; margin-top: 7px;" type="submit">Proceed to Checkout</button>
+</form>
+
+{%endblock%}
