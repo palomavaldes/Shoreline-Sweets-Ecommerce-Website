@@ -7,7 +7,7 @@ Key Features:
 - A checkout process that leads users to enter their perosnal information and gives them order summary/confirmation
 - An administration interface that allows the shop owner can edit categories and product listings. They can also track orders from sales.
 
-
+Demo pics: https://drive.google.com/drive/folders/1C5yikDbFSdtnpTJYsvUMM_i-bLse2TcC?usp=sharing
 
 
 
